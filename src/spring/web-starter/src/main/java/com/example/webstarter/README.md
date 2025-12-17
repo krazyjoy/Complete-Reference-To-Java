@@ -100,5 +100,39 @@ Right click on `com.example.webstarter` java package, then select `New | Spring 
 
 Select Bookmark as **Entity** and click **OK**.
 
+Since I did not find this choice in IntelliJ, I created the `BookmarkRepository` interface manually.
 
+```java
+
+package com.example.webstarter;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface BookmarkRepository extends JpaRepository<Bookmark, Long> {
+    List<BookMarkInfo> findAllByOrderByCreatedAtDesc();
+    // Optional<BookmarkInfo> because a bookmark with the given id may or may not exist
+    Optional<BookMarkInfo> findBookmarkById(Long id);
+
+}
+```
+
+### Implement BookmarkController 
+
+
+### Setup Postgres DB in properties
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/postgres
+spring.datasource.username=postgres
+spring.datasource.password=postgres
+```
+
+
+### Test API endpoints using HTTP Client
+
+IntelliJ IDEA provides a built-in HTTP Client, which we can use to invoke our API endpoints and assert the responses.
+
+You can open the HTTP Client by selecting Tools | HTTP Client | Create request in HTTP Client. Alternatively, you can also click on the API gutter icon on the API handler methods in BookmarkController.
 
